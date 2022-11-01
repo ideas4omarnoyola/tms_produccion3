@@ -25,6 +25,10 @@
     
     <img class="elementos" id="texto" src="../img/pagina06/texto.png" data-posX="0" data-posY="0" alt="">
     <img class="elementos" id="d1" src="../img/pagina06/d1.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="d2" src="../img/pagina06/d2.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="d3" src="../img/pagina06/d3.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="d4" src="../img/pagina06/d4.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="d5" src="../img/pagina06/d5.png" data-posX="0" data-posY="0"/>
 
     
     <!-- Script de la página -->
@@ -34,11 +38,26 @@
         let aplicacion = parent;
         const texto = $('#texto');
         const d1 = $('#d1');
+        const d2 = $('#d2');
+        const d3 = $('#d3');
+        const d4 = $('#d4');
+        const d5 = $('#d5');
+
+        const informacion = [d1, d2, d3, d4, d5];
+
+        let indexInfo = 0;
 
         // Audios------------------------------------------------------
         const audio = [
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3')
+            new Audio('../audios/TMS_OEA_M3_06_1.mp3')
+        ]
+
+        const audioIncidente = [
+            new Audio('../audios/TMS_OEA_M3_06_2.mp3'),
+            new Audio('../audios/TMS_OEA_M3_06_3.mp3'),
+            new Audio('../audios/TMS_OEA_M3_06_4.mp3'),
+            new Audio('../audios/TMS_OEA_M3_06_5.mp3'),
+            new Audio('../audios/TMS_OEA_M3_06_6.mp3'),
         ]
 
         // Al cargarse la página
@@ -48,17 +67,23 @@
         });
 
         function iniciarContenido(){
-            aplicacion.reproducirAudio(audio[0], dialogo, 1);
+            aplicacion.reproducirAudio(audio[0], narrarIncidentes, 1);
             animacionEntrada(texto, 'izquierda-derecha', 1, 1);
         }
 
-        function dialogo(){
-            aplicacion.reproducirAudio(audio[1], finalPagina, 1);
-            animacionEntrada(d1, 'default', 1, 1);
+        function narrarIncidentes(){
+            aplicacion.reproducirAudio(audioIncidente[indexInfo], siguiente, 1);
+            animacionEntrada(informacion[indexInfo], 'default', 1);
         }
 
-        function finalPagina(){
-            aplicacion.terminaPantalla();
+        function siguiente(){
+            indexInfo++;
+            if(indexInfo < informacion.length){
+                narrarIncidentes();
+            }
+            else{
+                aplicacion.terminaPantalla();
+            }
         }
 
     </script>
