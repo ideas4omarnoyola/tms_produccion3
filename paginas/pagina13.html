@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 13</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <!-- Librerias -->
+    <script src="../js/librerias/jquery.min.js"></script>
+    <script src="../js/librerias/gsap.min.js"></script>
+
+    <!-- Script de animaciones -->
+    <script src="../js/animaciones.js"></script>
+
+    <!-- Scripts posicionar elementos -->
+    <script src="../js/redimensionarElementos.js"></script>
+    <script src="../js/posicionar.js"></script>
+
+</head>
+<body class="pagina">
+
+    <img class="elementos" id="fondo" src="../img/pagina13/fondo.png" data-posX="0" data-posY="0"/>  
+ 
+    <img class="elementos" id="info01" src="../img/pagina13/info01.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="info02" src="../img/pagina13/info02.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="info03" src="../img/pagina13/info03.png" data-posX="0" data-posY="0"/>
+    <img class="elementos" id="info04" src="../img/pagina13/info04.png" data-posX="0" data-posY="0"/>
+
+    
+    <!-- Script de la página -->
+    <script>
+
+        // Variable----------------------------------------------------
+        let aplicacion = parent;
+
+        const fondo = $('#fondo');
+  
+        const info01 = $('#info01');
+        const info02 = $('#info02');
+        const info03 = $('#info03');
+        const info04 = $('#info04');
+
+
+        // Audios------------------------------------------------------
+        const audio = [
+            new Audio('../audios/TMS_OEA_M3_13_1.mp3'),
+            new Audio('../audios/TMS_OEA_M3_13_2.mp3'),
+            new Audio('../audios/TMS_OEA_M3_13_3.mp3'),
+            new Audio('../audios/TMS_OEA_M3_13_4.mp3'),
+            new Audio('../audios/TMS_OEA_M3_13_5.mp3'),
+        ]
+
+        // Al cargarse la página
+        $(window).on("load", function(){
+            redimensionarElementos();
+            aplicacion.cargando(iniciarContenido);
+        });
+
+        function iniciarContenido(){
+            aplicacion.reproducirAudio(audio[0], locutaInfo01, 1);
+            animacionEntrada(fondo, 'default', 1); 
+        }
+
+        function locutaInfo01(){
+            aplicacion.reproducirAudio(audio[1], locutaInfo02, 1);
+            animacionEntrada(info01, 'derecha-izquierda', 1);
+        }
+        function locutaInfo02(){
+            aplicacion.reproducirAudio(audio[2], locutaInfo03, 1);
+            animacionEntrada(info02, 'derecha-izquierda', 1);
+        }
+        function locutaInfo03(){
+            aplicacion.reproducirAudio(audio[3], locutaInfo04, 1);
+            animacionEntrada(info03, 'derecha-izquierda', 1);
+        }
+        function locutaInfo04(){
+            aplicacion.reproducirAudio(audio[4], finalPagina, 1);
+            animacionEntrada(info04, 'derecha-izquierda', 1);
+        }
+
+        function finalPagina(){
+            aplicacion.terminaPantalla();
+        }
+
+    </script>
+</body>
+</html>
