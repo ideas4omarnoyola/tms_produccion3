@@ -23,15 +23,16 @@
 <body class="pagina">
     <img class="elementos" id="texto" src="../img/pagina07/texto.png" data-posX="0" data-posY="0" alt="">
     <img class="elementos" id="d1" src="../img/pagina07/d1.png" data-posX="0" data-posY="0" alt="">
-
+    <img class="elementos" id="instrucciones" src="../img/pagina07/instrucciones.png" data-posX="0" data-posY="0" alt="">
+    
+    <img class="elementos botones" id="boton1" src="../img/pagina07/boton1.png" data-posX="468" data-posY="110" alt="">
     <img class="elementos infos" id="info1" src="../img/pagina07/info1.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos botones" id="boton2" src="../img/pagina07/boton2.png" data-posX="569" data-posY="247" alt="">
     <img class="elementos infos" id="info2" src="../img/pagina07/info2.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos botones" id="boton3" src="../img/pagina07/boton3.png" data-posX="649" data-posY="78" alt="">
     <img class="elementos infos" id="info3" src="../img/pagina07/info3.png" data-posX="0" data-posY="0" alt="">
+    <img class="elementos botones" id="boton4" src="../img/pagina07/boton4.png" data-posX="648" data-posY="415" alt="">
     <img class="elementos infos" id="info4" src="../img/pagina07/info4.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos infos" id="info5" src="../img/pagina07/info5.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos infos" id="info6" src="../img/pagina07/info6.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos infos" id="info7" src="../img/pagina07/info7.png" data-posX="0" data-posY="0" alt="">
-    <img class="elementos infos" id="info8" src="../img/pagina07/info8.png" data-posX="0" data-posY="0" alt="">
 
 
     <!-- Script de la página -->
@@ -42,35 +43,35 @@
 
         const texto = $('#texto');
         const d1 = $('#d1');
+        const instrucciones = $('#instrucciones');
+        const boton1 = $('#boton1');
+        const boton2 = $('#boton2');
+        const boton3 = $('#boton3');
+        const boton4 = $('#boton4');
         const info1 = $('#info1');
         const info2 = $('#info2');
         const info3 = $('#info3');
         const info4 = $('#info4');
-        const info5 = $('#info5');
-        const info6 = $('#info6');
-        const info7 = $('#info7');
-        const info8 = $('#info8');
 
-        const informacion = [info1, info2, info3, info4, info5, info6, info7, info8];
+        const botones = $('.botones');
+
+        const informacion = [info1, info2, info3, info4];
+        const btns = [boton1, boton2, boton3, boton4];
 
         let indexInfo = 0;
         
 
         // Audios------------------------------------------------------
         const audio = [
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3')
+            new Audio('../audios/TMS_OEA_M3_07_1.mp3'),
+            new Audio('../audios/TMS_OEA_M3_07_2.mp3')
         ]
 
-        const audioReglas = [
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
-            new Audio('../audios/Audio0.mp3'),
+        const audioBotones = [
+            new Audio('../audios/TMS_OEA_M3_07_3.mp3'),
+            new Audio('../audios/TMS_OEA_M3_07_4.mp3'),
+            new Audio('../audios/TMS_OEA_M3_07_5.mp3'),
+            new Audio('../audios/TMS_OEA_M3_07_6.mp3'),
         ]
 
         // Al cargarse la página
@@ -82,26 +83,36 @@
         function iniciarContenido(){
             aplicacion.reproducirAudio(audio[0], dialogo, 1);
             animacionEntrada(texto, 'default', 1, 1);
+            animacionEntrada(d1, 'default', 1, 1);
+            animacionEntrada(boton1, 'default', 1, 1.5);
+            animacionEntrada(boton2, 'default', 1, 2);
+            animacionEntrada(boton3, 'default', 1, 2.5);
+            animacionEntrada(boton4, 'default', 1, 3);
         }
 
         function dialogo(){
-            aplicacion.reproducirAudio(audio[1], reglas, 1);
-            animacionEntrada(d1, 'default', 1, 1);
+            aplicacion.reproducirAudio(audio[1], botonera, 1);
+            animacionEntrada(instrucciones, 'default', 1, 1);
         }
 
-        function reglas(){
-            narrarReglas();
+        function botonera(){
+            parpadear(btns[indexInfo]);
         }
 
-        function narrarReglas(){
-            aplicacion.reproducirAudio(audioReglas[indexInfo], siguiente, 1);
-            animacionEntrada(informacion[indexInfo], 'default', 1);
-        }
+        botones.each(function(){
+            $(this).click(function () {  
+                if($(this).css('cursor') == 'pointer'){
+                    aplicacion.reproducirAudio(audioBotones[indexInfo], siguiente, 1);
+                    animacionEntrada(informacion[indexInfo], 'default', 1);
+                    dejarParpadear($(this));
+                }
+            });
+        });
 
         function siguiente(){
             indexInfo++;
             if(indexInfo < informacion.length){
-                reglas();
+                botonera();
             }
             else{
                 aplicacion.terminaPantalla();
